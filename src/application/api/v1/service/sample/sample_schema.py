@@ -9,3 +9,8 @@ class sample(BaseModel):
     id: Optional[int]
     name: str
     description: Optional[str] = None
+
+
+class sampleCreate(BaseModel):
+    name: str
+    description: Optional[str] = None
