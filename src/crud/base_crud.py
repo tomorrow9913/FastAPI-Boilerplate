@@ -316,7 +316,7 @@ class BaseRepository(Generic[ModelType]):
                 f"Object with primary key `{pk}` not found in {self.model.__name__}."
             )
             return False
-        db.delete(db_obj)
+        await db.delete(db_obj)
         await db.commit()
         return True
 
