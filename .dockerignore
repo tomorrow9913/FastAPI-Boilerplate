@@ -1,0 +1,15 @@
+.dockerignore
+Dockerfile
+docker-compose.yml
+*.env
+alembic.ini
+.pre-commit-config.yaml
+.gitignore
+/src/test/*
+/src/infrastructure/database/migrations
+/.ruff_cache/*
+/.mypy_cache/*
+/.github/*
+/.git/*
+/.venv/*
+__pycache__/

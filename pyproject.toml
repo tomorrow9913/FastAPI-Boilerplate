@@ -1,0 +1,51 @@
+[dependency-groups]
+dev = [
+  "cryptography>=45.0.5",
+  "isort>=6.0.1",
+  "pre-commit>=4.2.0",
+  "ruff>=0.11.10",
+  "snakeviz>=2.2.2",
+  "sqlacodegen-v2>=0.1.4",
+  "yappi>=1.6.10"
+]
+
+[flake8]
+max-line-length = 80
+
+[project]
+dependencies = [
+  "aiohttp[speedups]>=3.12.15",
+  "alembic>=1.16.2",
+  "apprise>=1.9.4",
+  "asyncpg>=0.30.0",
+  "bandit>=1.8.5",
+  "celery>=5.5.3",
+  "click>=8.1.8",
+  "fastapi>=0.115.13",
+  "fastapi-users[redis,sqlalchemy]>=14.0.1",
+  "flower>=2.0.1",
+  "httpx>=0.28.1",
+  "loguru>=0.7.3",
+  "psycopg2-binary>=2.9.10",
+  "pydantic-settings>=2.9.1",
+  "pylint>=3.3.7",
+  "python-dotenv>=1.1.0",
+  "sqlalchemy>=2.0.41",
+  "starlette-admin>=0.15.1",
+  "toml>=0.10.2",
+  "types-toml>=0.10.8.20240310",
+  "uvicorn>=0.34.2"
+]
+description = "FastAPI-Boilerplate"
+name = "FastAPI-Boilerplate"
+readme = "README.md"
+requires-python = ">=3.12"
+version = "0.0.1"
+
+[tool.mypy]
+explicit_package_bases = true
+files = ["main.py", "src/"]
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = ["toml.*"]
