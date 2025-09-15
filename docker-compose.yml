@@ -41,7 +41,7 @@ services:
       DEBUG: "true"
       YAPPI_PROFILE_ENABLE: "False"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/helth"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
       interval: 1m30s
       timeout: 30s
       retries: 5
