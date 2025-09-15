@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
 
-class DatabaseConfig(BaseSettings):
+class InfraConfig(BaseSettings):
     WRITER_DB_URL: str
     READER_DB_URL: str
 

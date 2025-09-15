@@ -18,13 +18,13 @@ if config.config_file_name is not None:
 if not config.get_main_option("sqlalchemy.url"):
     config.set_main_option(
         "sqlalchemy.url",
-        app_config.DATABASE_CONFIG.WRITER_DB_URL,
+        app_config.INFRA_CONFIG.WRITER_DB_URL,
     )
 
 if not config.get_main_option("sqlalchemy.url"):
     # If sqlalchemy.url is not defined in the config file,
     # we can set it from the app's configuration.
-    config.set_main_option("sqlalchemy.url", app_config.DATABASE_CONFIG.WRITER_DB_URL)
+    config.set_main_option("sqlalchemy.url", app_config.INFRA_CONFIG.WRITER_DB_URL)
 
 # add your model's MetaData object here
 # for 'autogenerate' support

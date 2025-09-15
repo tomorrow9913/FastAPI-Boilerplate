@@ -5,21 +5,18 @@ from functools import lru_cache
 from dotenv import load_dotenv
 
 from src.core.config.app_config import AppConfig
-from src.core.config.crypt_config import CryptConfig
-from src.core.config.database_config import DatabaseConfig
+from src.core.config.infra_config import InfraConfig
 
 
 class Config:
     ENV: str
     APP_CONFIG: AppConfig
-    DATABASE_CONFIG: DatabaseConfig
-    SECURITY_CONFIG: CryptConfig
+    INFRA_CONFIG: InfraConfig
 
     def __init__(self, env: str):
         self.ENV = env
         self.APP_CONFIG = AppConfig()  # Pass env to AppConfig
-        self.DATABASE_CONFIG = DatabaseConfig()  # Initialize without env argument
-        self.SECURITY_CONFIG = CryptConfig()  # Initialize without env argument
+        self.INFRA_CONFIG = InfraConfig()  # Initialize without env argument
 
 
 @lru_cache

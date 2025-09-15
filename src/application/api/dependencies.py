@@ -9,7 +9,7 @@ from src.core.config import config
 from src.infrastructure.database.models import Base
 
 engine = {
-    "WRITER": create_async_engine(config.DATABASE_CONFIG.WRITER_DB_URL),
+    "WRITER": create_async_engine(config.INFRA_CONFIG.WRITER_DB_URL),
 }
 
 
