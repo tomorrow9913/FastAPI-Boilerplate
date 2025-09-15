@@ -5,12 +5,12 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class sample(BaseModel):
+class Sample(BaseModel):
     id: Optional[int]
     name: str
     description: Optional[str] = None
 
 
-class sampleCreate(BaseModel):
+class SampleCreate(BaseModel):
     name: str
     description: Optional[str] = None

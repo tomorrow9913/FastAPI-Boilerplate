@@ -11,8 +11,6 @@ logger = LogManager.get_logger("app")
 
 
 def create_sample(
-    db: Session, sample: sample_schema.sampleCreate
-) -> sample_schema.sample:
-    return sample_schema.sample(
-        id=1, name=sample.name, description=sample.description
-    )
+    db: Session, sample: sample_schema.SampleCreate
+) -> sample_schema.Sample:
+    return sample_schema.Sample(id=1, name=sample.name, description=sample.description)

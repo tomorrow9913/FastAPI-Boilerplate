@@ -1,4 +1,3 @@
-import os
 import pathlib
 
 import toml
@@ -13,17 +12,13 @@ class AppConfig(BaseSettings):
 
     # https://fastapi.tiangolo.com/tutorial/metadata/
     # https://fastapi.tiangolo.com/reference/fastapi/
-    APP_NAME: str | None = os.getenv("APP_NAME")
-    APP_DESCRIPTION: str | None = os.getenv("APP_DESCRIPTION")
-    APP_VERSION: str | None = os.getenv("APP_VERSION")
+    APP_NAME: str | None = None
+    APP_DESCRIPTION: str | None = None
+    APP_VERSION: str | None = None
 
-    APP_HOST: str = os.getenv("APP_HOST", "0.0.0.0")
-    APP_PORT: int = int(os.getenv("APP_PORT", 8000))
-    DEBUG: bool = os.getenv("DEBUG", "True") == "True"
-
-    POD_CONTROLLER_SERVICE: str = os.getenv(
-        "POD_CONTROLLER", "pod-manager-service.pod-manager.svc.cluster.local"
-    )
+    APP_HOST: str = "0.0.0.0"
+    APP_PORT: int = 8000
+    DEBUG: bool = True
 
     LOG_LEVEL: str = "DEBUG"
     LOG_FORMAT: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -31,14 +26,14 @@ class AppConfig(BaseSettings):
     LOG_FILE: str = "app.log"
     LOG_MAX_BYTES: int = 10485760  # 10 MB
     LOG_BACKUP_COUNT: int = 5
-    LOG_NOTIFIER_URL: str | None = os.getenv("LOG_NOTIFIER_URL")
+    LOG_NOTIFIER_URL: str | None
 
-    YAPPI_PROFILE_ENABLE: bool = os.getenv("YAPPI_PROFILE_ENABLE", "False") == "True"
+    YAPPI_PROFILE_ENABLE: bool = False
 
-    SMTP_SERVER: str = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-    SMTP_PORT: int = int(os.getenv("SMTP_PORT", 587))
-    SMTP_SENDER_EMAIL: str | None = os.getenv("SMTP_SENDER_EMAIL")
-    SMTP_SENDER_PASSWORD: str | None = os.getenv("SMTP_SENDER_PASSWORD")
+    SMTP_SERVER: str = "smtp.gmail.com"
+    SMTP_PORT: int = 587
+    SMTP_SENDER_EMAIL: str | None
+    SMTP_SENDER_PASSWORD: str | None
 
     def __init__(self, **data):
         super().__init__(**data)
