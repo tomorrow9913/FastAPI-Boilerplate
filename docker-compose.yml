@@ -1,0 +1,79 @@
+version: "3.8"
+
+x-common-config: &common-config
+  env_file:
+    - .env
+  restart: always
+  environment:
+    ENV: "${ENV}"
+
+    APP_HOST: "${APP_HOST}"
+    APP_PORT: "${APP_PORT}"
+
+    WRITER_DB_URL: "${WRITER_DB_URL}"
+    READER_DB_URL: "${READER_DB_URL}"
+    REDIS_URL: "${REDIS_URL}"
+
+    LOG_LEVEL: "${LOG_LEVEL}"
+    LOG_FORMAT: "${LOG_FORMAT}"
+    LOG_NOTIFIER_URL: "${LOG_NOTIFIER_URL}"
+
+    SMTP_SERVER: "${SMTP_SERVER}"
+    SMTP_PORT: "${SMTP_PORT}"
+    SMTP_SENDER_EMAIL: "${SMTP_SENDER_EMAIL}"
+    SMTP_SENDER_PASSWORD: "${SMTP_SENDER_PASSWORD}"
+  volumes:
+    - ./logs:/home/portal/app/logs
+  depends_on:
+    - redis
+
+services:
+  portal-backend:
+    <<: *common-config
+    image: portal-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portal-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: "true"
+      YAPPI_PROFILE_ENABLE: "False"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  worker:
+    <<: *common-config
+    image: portal-app:latest
+    container_name: portal-worker
+    command: ["uv", "run", "celery", "-A", "src.infrastructure.celery.worker", "worker", "--loglevel=${LOG_LEVEL}", "-P", "solo"]
+
+  beat:
+    <<: *common-config
+    image: portal-app:latest
+    container_name: portal-beat
+    command: ["uv", "run", "celery", "-A", "src.infrastructure.celery.worker", "beat", "--loglevel=${LOG_LEVEL}"]
+
+  flower:
+    <<: *common-config
+    image: portal-app:latest
+    container_name: portal-flower
+    command: ["uv", "run", "celery", "-A", "src.infrastructure.celery.worker.celery_app", "flower"]
+    ports:
+      - "5555:5555"
+    depends_on:
+      - worker
+      - redis
+
+  redis:
+    image: redis:6.2.6
+    container_name: portal-redis
+    command: redis-server --port 6379
+    restart: always
+    ports:
+      - "6379:6379"
