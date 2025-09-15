@@ -1,0 +1,19 @@
+# Test Requirements
+# 테스트 실행에 필요한 패키지들
+
+pytest==8.3.3
+pytest-asyncio==0.24.0
+pytest-cov==5.0.0
+pytest-mock==3.14.0
+pytest-env==1.1.5
+
+# PostgreSQL 관련
+psycopg2-binary>=2.9.10
+asyncpg>=0.30.0
+
+# SQLite 폴백용 (개발/CI 환경)
+aiosqlite>=0.20.0
+
+# 테스트 데이터 생성
+factory-boy==3.3.1
+faker==30.8.2
