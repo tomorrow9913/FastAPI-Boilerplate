@@ -5,9 +5,9 @@
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 from src.core.config import config
+from src.core.exception_handlers import register_exception_handlers
 from src.core.logger import LogManager
 
 logger = LogManager.get_logger("app")
@@ -115,20 +115,12 @@ def create_app() -> FastAPI:
 
     logger.info("Create FastAPI application instance.")
     init_sub_applications_mount(app_, sub_api)
+    register_exception_handlers(app_)
 
     return app_
 
 
 app = create_app()
-
-
-@app.exception_handler(Exception)
-async def unhandled_exception_handler(request: Request, exc: Exception):
-    """
-    처리되지 않은 모든 예외를 잡아 로깅하고, 표준화된 JSON 응답을 반환합니다.
-    """
-    logger.exception(f"처리되지 않은 예외 발생: {exc}")
-    return JSONResponse(status_code=500, content={"detail": "Internal Server Error"})
 
 
 @app.get("/health")
