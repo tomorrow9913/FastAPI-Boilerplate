@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# File: src/application/api/v1/service/workspace/workspace_service.py
+# File: src/application/api/v1/service/sample/sample_service.py
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.application.api.v1.service.sample import sample_schema

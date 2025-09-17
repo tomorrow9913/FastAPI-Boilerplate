@@ -36,8 +36,4 @@ async def create_sample_endpoint(
     sample_data: sample_schema.SampleCreate,
     sample_service: sample_service.SampleService = Depends(get_sample_service),
 ):
-    try:
-        # 라우트 핸들러는 단순히 서비스의 메서드를 호출하는 역할만 합니다.
-        return await sample_service.create_new_sample(sample_data)
-    except ValueError as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    return await sample_service.create_new_sample(sample_data)
